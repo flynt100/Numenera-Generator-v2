@@ -1,0 +1,95 @@
+{
+  "table_info": {
+    "name": "Corridor Details",
+    "description": "Details for corridors in the dungeon"
+  },
+  "entries": [
+    {
+      "name": "Passage extends 20 ft (6 m), roll again on main feature table",
+      "min": 1,
+      "max": 7,
+      "roll_again": true
+    },
+    {
+      "name": "Passage extends a short distance",
+      "min": 8,
+      "max": 10
+    },
+    {
+      "name": "Passage blocked by a corridor collapse",
+      "min": 11,
+      "max": 11
+    },
+    {
+      "name": "Passage comes to a dead end",
+      "min": 12,
+      "max": 12
+    },
+    {
+      "name": "Passage bends left",
+      "min": 13,
+      "max": 13
+    },
+    {
+      "name": "Passage bends right",
+      "min": 14,
+      "max": 14
+    },
+    {
+      "name": "Passage slopes up",
+      "min": 15,
+      "max": 15
+    },
+    {
+      "name": "Passage slopes down",
+      "min": 16,
+      "max": 16
+    },
+    {
+      "name": "Passage runs a short distance parallel to previous chamber or corridor, roll again on this table",
+      "min": 17,
+      "max": 17,
+      "roll_again": true,
+      "note": "Ignore if no previously rolled chamber or corridor"
+    },
+    {
+      "name": "Passage runs an immediate distance into an interstitial cavity, then runs an additional distance across that cavity's entire width as a catwalk",
+      "min": 18,
+      "max": 18,
+      "additional_rolls": [
+        {
+          "table": "interstitial_cavity",
+          "description": "Determine nature of space passed through"
+        },
+        {
+          "table": "corridor_details",
+          "description": "Where the passage returns to normal (enclosed)"
+        }
+      ]
+    },
+    {
+      "name": "Passage runs a short distance and comes to a T intersection",
+      "min": 19,
+      "max": 19,
+      "additional_rolls": [
+        {
+          "table": "corridor_details",
+          "count": 2,
+          "description": "Roll for each branch"
+        }
+      ]
+    },
+    {
+      "name": "Passage runs a short distance and comes to an X intersection",
+      "min": 20,
+      "max": 20,
+      "additional_rolls": [
+        {
+          "table": "corridor_details",
+          "count": 3,
+          "description": "Roll for each branch"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "table_info": {
+    "name": "Exits",
+    "description": "Details for room exits"
+  },
+  "entries": [
+    {
+      "name": "No additional exits",
+      "min": 1,
+      "max": 4
+    },
+    {
+      "name": "1 additional exit",
+      "min": 5,
+      "max": 12
+    },
+    {
+      "name": "1 additional sealed exit",
+      "min": 13,
+      "max": 14,
+      "note": "Sealed exits require special means to open"
+    },
+    {
+      "name": "2 additional exits",
+      "min": 15,
+      "max": 15
+    },
+    {
+      "name": "1 additional exit + 1 sealed exit",
+      "min": 16,
+      "max": 16,
+      "note": "Sealed exits require special means to open"
+    },
+    {
+      "name": "2 additional exits + 1 sealed exit",
+      "min": 17,
+      "max": 17,
+      "note": "Sealed exits require special means to open"
+    },
+    {
+      "name": "2 sealed exits",
+      "min": 18,
+      "max": 18,
+      "note": "Sealed exits require special means to open"
+    },
+    {
+      "name": "1 additional trapped exit",
+      "min": 19,
+      "max": 19,
+      "roll_again": true,
+      "note": "Trapped exits contain hazards that activate when used"
+    },
+    {
+      "name": "1 additional hidden exit",
+      "min": 20,
+      "max": 20,
+      "roll_again": true,
+      "note": "Hidden exits require a perception check to locate"
+    }
+  ]
+}

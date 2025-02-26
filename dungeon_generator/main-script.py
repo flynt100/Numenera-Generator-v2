@@ -12,16 +12,8 @@ from pathlib import Path
 # Ensure proper paths for imports
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-# Check for GUI mode
-UI_ENABLED = True
-
-try:
-    from PyQt6.QtWidgets import QApplication
-    from src.ui.main_window import MainWindow
-except ImportError:
-    UI_ENABLED = False
-    print("PyQt6 not found. Please run: pip install PyQt6")
-    print("Falling back to console mode.")
+# Run in console mode only
+UI_ENABLED = False
 
 from src.models.dungeon import Dungeon
 from src.generators.dungeon_generator import DungeonGenerator

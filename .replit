@@ -1,9 +1,8 @@
-
 modules = ["python-3.12"]
-run = "python dungeon_generator/main-script.py"
+run = "python dungeon_generator/main_script.py"
 
 [nix]
 channel = "stable-24_05"
 
 [deployment]
-run = "python dungeon_generator/main-script.py"
+run = "python dungeon_generator/main_script.py"

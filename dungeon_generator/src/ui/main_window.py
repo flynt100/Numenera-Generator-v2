@@ -236,3 +236,132 @@ class MainWindow(QMainWindow):
         """Open the custom table editor."""
         editor = TableEditorDialog(self)
         editor.exec()
+"""
+Main window implementation for the dungeon generator GUI.
+"""
+
+from PyQt6.QtWidgets import (
+    QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
+    QLabel, QLineEdit, QSpinBox, QPushButton, QTextEdit,
+    QMessageBox, QFileDialog
+)
+from src.models.dungeon import Dungeon
+from src.generators.dungeon_generator import DungeonGenerator
+
+class MainWindow(QMainWindow):
+    """Main window of the dungeon generator application."""
+    
+    def __init__(self):
+        """Initialize the main window."""
+        super().__init__()
+        
+        self.dungeon = Dungeon()
+        self.generator = DungeonGenerator()
+        
+        self.setWindowTitle("Dungeon Generator")
+        self.setMinimumSize(800, 600)
+        
+        self.init_ui()
+        
+    def init_ui(self):
+        """Initialize the UI components."""
+        central_widget = QWidget()
+        main_layout = QHBoxLayout(central_widget)
+        
+        # Left panel - Controls
+        left_panel = QWidget()
+        left_layout = QVBoxLayout(left_panel)
+        
+        # Dungeon name input
+        name_layout = QHBoxLayout()
+        name_layout.addWidget(QLabel("Dungeon Name:"))
+        self.name_input = QLineEdit("Random Dungeon")
+        name_layout.addWidget(self.name_input)
+        left_layout.addLayout(name_layout)
+        
+        # Room count input
+        rooms_layout = QHBoxLayout()
+        rooms_layout.addWidget(QLabel("Number of Rooms:"))
+        self.room_count = QSpinBox()
+        self.room_count.setMinimum(1)
+        self.room_count.setMaximum(100)
+        self.room_count.setValue(5)
+        rooms_layout.addWidget(self.room_count)
+        left_layout.addLayout(rooms_layout)
+        
+        # Generate button
+        self.generate_btn = QPushButton("Generate Dungeon")
+        self.generate_btn.clicked.connect(self.generate_dungeon)
+        left_layout.addWidget(self.generate_btn)
+        
+        # Save/Load buttons
+        self.save_btn = QPushButton("Save Dungeon")
+        self.save_btn.clicked.connect(self.save_dungeon)
+        left_layout.addWidget(self.save_btn)
+        
+        self.load_btn = QPushButton("Load Dungeon")
+        self.load_btn.clicked.connect(self.load_dungeon)
+        left_layout.addWidget(self.load_btn)
+        
+        main_layout.addWidget(left_panel)
+        
+        # Right panel - Output
+        self.output_text = QTextEdit()
+        self.output_text.setReadOnly(True)
+        main_layout.addWidget(self.output_text)
+        
+        self.setCentralWidget(central_widget)
+        
+    def generate_dungeon(self):
+        """Generate a new dungeon based on current settings."""
+        try:
+            name = self.name_input.text()
+            room_count = self.room_count.value()
+            
+            self.dungeon = self.generator.generate_dungeon(room_count, name)
+            self.display_dungeon()
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to generate dungeon: {e}")
+            
+    def display_dungeon(self):
+        """Display the current dungeon in the output text area."""
+        output = f"# {self.dungeon.name}\n\n"
+        output += f"Created: {self.dungeon.created_at}\n"
+        output += f"Total Rooms: {len(self.dungeon.rooms)}\n\n"
+        
+        for i, room in enumerate(self.dungeon.rooms, 1):
+            output += f"## Room {i}\n\n"
+            output += str(room) + "\n\n"
+            
+        self.output_text.setText(output)
+        
+    def save_dungeon(self):
+        """Save the current dungeon to a file."""
+        if not self.dungeon or not self.dungeon.rooms:
+            QMessageBox.warning(self, "Warning", "No dungeon to save")
+            return
+            
+        file_path, _ = QFileDialog.getSaveFileName(
+            self, "Save Dungeon", "", "Dungeon Files (*.dungeon);;All Files (*)"
+        )
+        
+        if file_path:
+            if self.dungeon.save(file_path):
+                QMessageBox.information(self, "Success", "Dungeon saved successfully")
+            else:
+                QMessageBox.critical(self, "Error", "Failed to save dungeon")
+                
+    def load_dungeon(self):
+        """Load a dungeon from a file."""
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, "Load Dungeon", "", "Dungeon Files (*.dungeon);;All Files (*)"
+        )
+        
+        if file_path:
+            loaded_dungeon = Dungeon.load(file_path)
+            if loaded_dungeon:
+                self.dungeon = loaded_dungeon
+                self.display_dungeon()
+                self.name_input.setText(self.dungeon.name)
+            else:
+                QMessageBox.critical(self, "Error", "Failed to load dungeon")

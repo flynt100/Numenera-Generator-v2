@@ -20,7 +20,8 @@ try:
     from src.ui.main_window import MainWindow
 except ImportError:
     UI_ENABLED = False
-    print("PyQt6 not found. Falling back to console mode.")
+    print("PyQt6 not found. Please run: pip install PyQt6")
+    print("Falling back to console mode.")
 
 from src.models.dungeon import Dungeon
 from src.generators.dungeon_generator import DungeonGenerator

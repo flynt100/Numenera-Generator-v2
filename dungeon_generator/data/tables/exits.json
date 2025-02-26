@@ -1,0 +1,10 @@
+
+{
+  "entries": [
+    {"name": "No additional exits", "min": 1, "max": 10},
+    {"name": "1 additional exit", "min": 11, "max": 15},
+    {"name": "2 additional exits", "min": 16, "max": 18},
+    {"name": "1 hidden exit", "min": 19, "max": 19},
+    {"name": "1 trapped exit", "min": 20, "max": 20}
+  ]
+}

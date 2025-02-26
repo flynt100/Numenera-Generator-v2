@@ -20,8 +20,8 @@ def get_tables_path(custom=False):
     Returns:
         Path: Path object pointing to the tables directory.
     """
-    # Get the absolute path to the root directory (two levels up from this file)
-    base_dir = Path(__file__).resolve().parent.parent.parent
+    # Get the absolute path to the dungeon_generator directory
+    base_dir = Path(__file__).resolve().parent.parent.parent.parent / "dungeon_generator"
     
     if custom:
         return base_dir / "data" / "custom_tables"

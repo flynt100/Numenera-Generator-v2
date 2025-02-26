@@ -1,0 +1,14 @@
+
+{
+  "entries": [
+    {"name": "Corridor", "min": 1, "max": 6},
+    {"name": "Chamber", "min": 7, "max": 12},
+    {"name": "Creature", "min": 13, "max": 14},
+    {"name": "Explorers", "min": 15, "max": 15},
+    {"name": "Interstitial cavity", "min": 16, "max": 16},
+    {"name": "Accessway", "min": 17, "max": 17},
+    {"name": "Rupture", "min": 18, "max": 18},
+    {"name": "Shaft", "min": 19, "max": 19},
+    {"name": "Vault", "min": 20, "max": 20}
+  ]
+}
